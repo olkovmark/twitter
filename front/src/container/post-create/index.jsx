@@ -1,4 +1,4 @@
-import Grid from "../../component/gird";
+import Grid from "../../component/grid";
 import FieldForm from "../../component/field-form";
 import { useState } from "react";
 

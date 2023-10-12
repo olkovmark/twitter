@@ -66,4 +66,44 @@ router.get('/post-list', (req, res) => {
   }
 })
 
+router.get('/post-item', (req, res) => {
+  try {
+    const { id } = req.query
+
+    if (!id) {
+      return res.status(400).json({
+        message: 'Id no found',
+      })
+    }
+
+    const post = Post.getById(Number(id))
+
+    if (!post) {
+      return res.status(400).json({
+        message: 'Id no found',
+      })
+    }
+
+    return res.status(200).json({
+      post: {
+        id: post.id,
+        text: post.text,
+        username: post.username,
+        date: post.date,
+
+        reply: post.reply.map((reply) => ({
+          id: reply.id,
+          text: reply.text,
+          username: reply.username,
+          date: reply.date,
+        })),
+      },
+    })
+  } catch (error) {
+    return res.status(400).json({
+      message: e.message,
+    })
+  }
+})
+
 module.exports = router
